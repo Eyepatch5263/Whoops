@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,8 +18,9 @@ void main() {
       ),
       home: const HomePage(),
       routes: {
-        '/login/': (context) => const Login_view(),
+        '/login/': (context) => const LoginView(),
         '/register/': (context) => const RegisterView(),
+        '/notes/':(context) => const NotesView(),
       },
     ),
   );
@@ -44,7 +46,7 @@ class HomePage extends StatelessWidget {
                 return const VerifyEmailView();
               }
             } else {
-              return const Login_view();
+              return const LoginView();
             }
 
           default:
@@ -71,7 +73,7 @@ class _NotesViewState extends State<NotesView> {
       appBar: AppBar(
         title: const Text('My notes'),
         actions: [
-          PopupMenuButton<MenuAction>(onSelected: (value) async {
+          PopupMenuButton<MenuAction>(onSelected: (value) async{
             switch (value) {
               case MenuAction.logout:
                 final shouldLogout = await showLogoutDialog(context);
