@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:whoops4/constant/routes.dart';
 import 'package:whoops4/firebase_options.dart';
 import 'package:whoops4/views/login_view.dart';
 import 'package:whoops4/views/register_view.dart';
@@ -18,9 +18,9 @@ void main() {
       ),
       home: const HomePage(),
       routes: {
-        '/login/': (context) => const LoginView(),
-        '/register/': (context) => const RegisterView(),
-        '/notes/':(context) => const NotesView(),
+        loginRoute: (context) => const LoginView(),
+        registerRoute: (context) => const RegisterView(),
+        notesRoute: (context) => const NotesView(),
       },
     ),
   );
@@ -73,14 +73,14 @@ class _NotesViewState extends State<NotesView> {
       appBar: AppBar(
         title: const Text('My notes'),
         actions: [
-          PopupMenuButton<MenuAction>(onSelected: (value) async{
+          PopupMenuButton<MenuAction>(onSelected: (value) async {
             switch (value) {
               case MenuAction.logout:
                 final shouldLogout = await showLogoutDialog(context);
                 if (shouldLogout) {
                   await FirebaseAuth.instance.signOut();
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/login/', (_) => false);
+                      .pushNamedAndRemoveUntil(loginRoute, (_) => false);
                 }
                 break;
             }
