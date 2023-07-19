@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:whoops4/constant/routes.dart';
 import 'package:whoops4/services/auth/auth_services.dart';
 import 'package:whoops4/views/login_view.dart';
-import 'package:whoops4/views/notes_view.dart';
+import 'package:whoops4/views/notes/new_note_view.dart';
+import 'package:whoops4/views/notes/notes_view.dart';
 import 'package:whoops4/views/register_view.dart';
 import 'package:whoops4/views/verify_email.dart';
 import 'dart:developer' as devtools;
@@ -21,6 +22,7 @@ void main() {
         registerRoute: (context) => const RegisterView(),
         notesRoute: (context) => const NotesView(),
         verifyEmailRoute: (context) => const VerifyEmailView(),
+        newNoteRoute:(context)=> const NewNotesView(),
       },
     ),
   );
