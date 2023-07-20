@@ -62,7 +62,7 @@ class _NewNotesViewState extends State<NewNotesView> {
     final note = _note;
     final text = _textController.text;
     if (note != null && text.isNotEmpty) {
-      _notesService.updateNotes(note: note, text: text);
+      _notesService.updateNotes(note:note, text: text);
     }
   }
 
@@ -91,7 +91,8 @@ class _NewNotesViewState extends State<NewNotesView> {
                   controller: _textController,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
-                  decoration:const InputDecoration(hintText: "start Typing Your Notes here.."),
+                  decoration: const InputDecoration(
+                      hintText: "start Typing Your Notes here.."),
                 );
               default:
                 return const CircularProgressIndicator();
