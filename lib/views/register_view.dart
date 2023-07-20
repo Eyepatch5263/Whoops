@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:developer' as devtools;
 import 'package:whoops4/constant/routes.dart';
 import 'package:whoops4/services/auth/auth_services.dart';
 import 'package:whoops4/services/auth_exception.dart';
