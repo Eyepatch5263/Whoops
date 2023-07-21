@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:whoops4/services/auth/auth_services.dart';
-import 'package:whoops4/services/crud/notes_service.dart';
+import 'package:whoops4/services/crud/notes_services.dart';
 
 class NewNotesView extends StatefulWidget {
   const NewNotesView({super.key});
@@ -11,7 +10,9 @@ class NewNotesView extends StatefulWidget {
 }
 
 class _NewNotesViewState extends State<NewNotesView> {
-  Database? _note;
+  DatabaseNote? _note;
+  late final NotesService _notesService;
+  late final TextEditingController _textController;
 
   @override
   void initState() {
@@ -26,7 +27,7 @@ class _NewNotesViewState extends State<NewNotesView> {
       return;
     }
     final text = _textController.text;
-    await _notesService.updateNotes(
+    await _notesService.updateNote(
       text: text,
       note: note,
     );
@@ -37,10 +38,7 @@ class _NewNotesViewState extends State<NewNotesView> {
     _textController.addListener(_textControllerListener);
   }
 
-  late final NotesService _notesService;
-  late final TextEditingController _textController;
-
-  Future<DatabaseNotes> createNewNote() async {
+  Future<DatabaseNote> createNewNote() async {
     final existingNote = _note;
     if (existingNote != null) {
       return existingNote;
@@ -58,11 +56,14 @@ class _NewNotesViewState extends State<NewNotesView> {
     }
   }
 
-  void _saveNoteIfTextIsNotEmpty() {
+  void _saveNoteIfTextIsNotEmpty() async {
     final note = _note;
     final text = _textController.text;
     if (note != null && text.isNotEmpty) {
-      _notesService.updateNotes(note:note, text: text);
+      await _notesService.updateNote(
+        note: note,
+        text: text,
+      );
     }
   }
 
@@ -85,7 +86,7 @@ class _NewNotesViewState extends State<NewNotesView> {
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.done:
-                _note = snapshot.data as Database?;
+                _note = snapshot.data as DatabaseNote;
                 _setupTextControllerListener();
                 return TextField(
                   controller: _textController,
