@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:whoops4/services/cloud/cloud_note.dart';
 import 'package:whoops4/utilities/dialogs/delete_dialog.dart';
 
-typedef NoteCallBack = void Function(CloudNote note);
+typedef NoteCallback = void Function(CloudNote note);
 
 class NotesListView extends StatelessWidget {
   final Iterable<CloudNote> notes;
-  final NoteCallBack onDeleteNote;
-  final NoteCallBack onTap;
+  final NoteCallback onDeleteNote;
+  final NoteCallback onTap;
 
   const NotesListView({
-    super.key,
+    Key? key,
     required this.notes,
     required this.onDeleteNote,
     required this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
