@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:whoops4/services/cloud/cloud_note.dart';
 import 'package:whoops4/services/cloud/cloud_storage_constants.dart';
 import 'package:whoops4/services/cloud/cloud_storage_exceptions.dart';
-import 'package:whoops4/services/crud/crude_exceptions.dart';
 
 class FirebaseCloudStorage {
   final notes = FirebaseFirestore.instance.collection("notes");
@@ -11,7 +10,7 @@ class FirebaseCloudStorage {
     try {
       await notes.doc(documentId).delete();
     } catch (e) {
-      throw CouldNotDeleteNote();
+      throw CloudNotDeleteNoteException();
     }
   }
 
@@ -22,7 +21,7 @@ class FirebaseCloudStorage {
     try {
       await notes.doc(documentId).update({textFieldName: text});
     } catch (e) {
-      throw CouldNotUpdateNote();
+      throw CloudNotUpdateNoteException();
     }
   }
 
@@ -40,25 +39,24 @@ class FirebaseCloudStorage {
           )
           .get()
           .then(
-            (value) => value.docs.map(
-              (doc) {
-                return CloudNote(
-                    documentId: doc.id,
-                    ownerUserId: doc.data()[ownerUserIdFieldName],
-                    text: doc.data()[textFieldName] as String);
-              },
-            ),
+            (value) => value.docs.map((doc) => CloudNote.fromSnapshot(doc)),
           );
     } catch (e) {
       throw CloudNotGetAllNotesException();
     }
   }
 
-  void createNewNote({required String ownerUserId}) async {
-    await notes.add({
+  Future<CloudNote> createNewNote({required String ownerUserId}) async {
+    final document = await notes.add({
       ownerUserIdFieldName: ownerUserId, // user id of the note's creator
       textFieldName: "",
     });
+    final fetchedNote = await document.get();
+    return CloudNote(
+      documentId: fetchedNote.id,
+      ownerUserId: ownerUserId,
+      text: '',
+    );
   }
 
   static final FirebaseCloudStorage _shared =
