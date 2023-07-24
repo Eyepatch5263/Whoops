@@ -17,26 +17,29 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Verify Email")),
-      body: Column(
-        children: [
-          const Text(
-              "We've already sent you a verification Email, Please verify your account."),
-          const Text(
-              "If you haven't receive a verification email yet, press the button below"),
-          TextButton(
-            onPressed: () {
-              context
-                  .read<AuthBloc>()
-                  .add(const AuthEventSendEmailVerification());
-            },
-            child: const Text("send Email verification"),
-          ),
-          TextButton(
-              onPressed: () async {
-                context.read<AuthBloc>().add(const AuthEventLogOut());
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            const Text(
+                "We've already sent you a verification Email, Please verify your account."),
+            const Text(
+                "If you haven't receive a verification email yet, press the button below"),
+            TextButton(
+              onPressed: () {
+                context
+                    .read<AuthBloc>()
+                    .add(const AuthEventSendEmailVerification());
               },
-              child: const Text("Restart"))
-        ],
+              child: const Text("send Email verification"),
+            ),
+            TextButton(
+                onPressed: () async {
+                  context.read<AuthBloc>().add(const AuthEventLogOut());
+                },
+                child: const Text("Restart"))
+          ],
+        ),
       ),
     );
   }
