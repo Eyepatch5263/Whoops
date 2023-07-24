@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whoops4/services/auth/auth_services.dart';
+import 'package:whoops4/services/auth/bloc/auth_bloc.dart';
+import 'package:whoops4/services/auth/bloc/auth_event.dart';
 import 'package:whoops4/services/cloud/cloud_note.dart';
 import 'package:whoops4/services/cloud/firebase_cloud_storage.dart';
 import 'package:whoops4/utilities/dialogs/logout_dialog.dart';
@@ -30,23 +33,14 @@ class _NotesViewState extends State<NotesView> {
       appBar: AppBar(
         title: const Text("My Notes"),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
-            },
-            icon: const Icon(Icons.add),
-          ),
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
               switch (value) {
                 case MenuAction.logout:
                   final shouldLogout = await showLogOutDialog(context);
                   if (shouldLogout) {
-                    await AuthService.firebase().logout();
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil(loginRoute, (_) => false);
+                    context.read<AuthBloc>().add(const AuthEventLogOut());
                   }
-                  break;
               }
             },
             itemBuilder: (context) {
@@ -85,6 +79,12 @@ class _NotesViewState extends State<NotesView> {
               return const CircularProgressIndicator();
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
