@@ -54,7 +54,8 @@ class _NotesViewState extends State<NotesView> {
           )
         ],
       ),
-      body: StreamBuilder(
+      body:
+      StreamBuilder(
         stream: _notesService.allNotes(ownerUserId: userId),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {

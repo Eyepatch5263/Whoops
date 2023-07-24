@@ -57,6 +57,7 @@ class FirebaseAuthProvider implements AuthProvider {
     required String password,
   }) async {
     try {
+      await Future.delayed(const Duration(seconds: 3));
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -102,6 +103,7 @@ class FirebaseAuthProvider implements AuthProvider {
 
   @override
   Future<void> initialize() async {
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
   }
 }
