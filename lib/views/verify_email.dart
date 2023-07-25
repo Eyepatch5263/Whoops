@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whoops4/constant/routes.dart';
-import 'package:whoops4/services/auth/auth_services.dart';
 import 'package:whoops4/services/auth/bloc/auth_bloc.dart';
 import 'package:whoops4/services/auth/bloc/auth_event.dart';
 
@@ -16,30 +14,38 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(title: const Text("Verify Email")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const Text(
-                "We've already sent you a verification Email, Please verify your account."),
-            const Text(
-                "If you haven't receive a verification email yet, press the button below"),
-            TextButton(
-              onPressed: () {
-                context
-                    .read<AuthBloc>()
-                    .add(const AuthEventSendEmailVerification());
-              },
-              child: const Text("send Email verification"),
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              "We've already sent you a verification Email, Please verify your account.",
+              style: TextStyle(color: Colors.deepPurpleAccent),
             ),
-            TextButton(
-                onPressed: () async {
-                  context.read<AuthBloc>().add(const AuthEventLogOut());
-                },
-                child: const Text("Restart"))
-          ],
-        ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              "If you haven't receive a verification email yet, press the button below",
+              style: TextStyle(color: Colors.deepPurpleAccent),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              context
+                  .read<AuthBloc>()
+                  .add(const AuthEventSendEmailVerification());
+            },
+            child: const Text("send Email verification"),
+          ),
+          TextButton(
+              onPressed: () async {
+                context.read<AuthBloc>().add(const AuthEventLogOut());
+              },
+              child: const Text("Back to login"))
+        ],
       ),
     );
   }

@@ -44,6 +44,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         }
       },
       child: Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
           title: const Text("Forgot password"),
         ),
@@ -54,6 +55,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               const Text(
                   "If your forgot your password, simply enter your email and we will send you a password reset link"),
               TextField(
+                style: const TextStyle(color: Colors.deepPurpleAccent),
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
                 autofocus: true,

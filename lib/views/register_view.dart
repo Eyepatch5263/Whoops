@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whoops4/constant/routes.dart';
-import 'package:whoops4/services/auth/auth_services.dart';
 import 'package:whoops4/services/auth/bloc/auth_bloc.dart';
 import 'package:whoops4/services/auth/bloc/auth_event.dart';
 import 'package:whoops4/services/auth/bloc/auth_state.dart';
@@ -50,6 +48,7 @@ class _RegisterViewState extends State<RegisterView> {
         }
       },
       child: Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
           title: const Text("Register"),
         ),
@@ -58,6 +57,7 @@ class _RegisterViewState extends State<RegisterView> {
           child: Column(
             children: [
               TextField(
+                style: const TextStyle(color: Colors.deepPurpleAccent),
                 controller: _email,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -65,6 +65,7 @@ class _RegisterViewState extends State<RegisterView> {
                 decoration: const InputDecoration(hintText: "Enter Your Email"),
               ),
               TextField(
+                style: const TextStyle(color: Colors.deepPurpleAccent),
                 controller: _password,
                 obscureText: true,
                 enableSuggestions: false,

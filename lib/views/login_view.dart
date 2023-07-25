@@ -4,7 +4,6 @@ import 'package:whoops4/services/auth/bloc/auth_bloc.dart';
 import 'package:whoops4/services/auth/bloc/auth_event.dart';
 import 'package:whoops4/services/auth/bloc/auth_state.dart';
 import 'package:whoops4/services/auth_exception.dart';
-import 'package:whoops4/utilities/dialogs/loading_dialog.dart';
 import '../utilities/dialogs/error_dialog.dart';
 
 class LoginView extends StatefulWidget {
@@ -48,6 +47,7 @@ class _LoginViewState extends State<LoginView> {
         }
       },
       child: Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
           title: const Text("Login"),
         ),
@@ -56,6 +56,7 @@ class _LoginViewState extends State<LoginView> {
           child: Column(
             children: [
               TextField(
+                style: const TextStyle(color: Colors.deepPurpleAccent),
                 controller: _email,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -63,6 +64,7 @@ class _LoginViewState extends State<LoginView> {
                 decoration: const InputDecoration(hintText: "Enter Your Email"),
               ),
               TextField(
+                style: const TextStyle(color: Colors.deepPurpleAccent),
                 controller: _password,
                 obscureText: true,
                 enableSuggestions: false,

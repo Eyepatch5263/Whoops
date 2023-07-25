@@ -19,8 +19,12 @@ void main() {
     MaterialApp(
       title: 'Whoops',
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
-      ),
+          primarySwatch: Colors.purple,
+          fontFamily: 'Georgia',
+          inputDecorationTheme: const InputDecorationTheme(
+            hintStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+            labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+          )),
       home: BlocProvider<AuthBloc>(
         create: (context) => AuthBloc(FirebaseAuthProvider()),
         child: const HomePage(),

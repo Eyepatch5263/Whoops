@@ -30,6 +30,7 @@ class _NotesViewState extends State<NotesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text("My Notes"),
         actions: [
@@ -54,8 +55,7 @@ class _NotesViewState extends State<NotesView> {
           )
         ],
       ),
-      body:
-      StreamBuilder(
+      body: StreamBuilder(
         stream: _notesService.allNotes(ownerUserId: userId),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {

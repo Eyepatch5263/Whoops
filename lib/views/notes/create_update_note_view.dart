@@ -91,6 +91,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
           title: const Text("New Note"),
           actions: [
@@ -116,6 +117,8 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                 case ConnectionState.done:
                   _setupTextControllerListener();
                   return TextField(
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255)),
                     controller: _textController,
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
